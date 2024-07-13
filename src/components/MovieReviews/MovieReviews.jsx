@@ -25,7 +25,6 @@ export default function MovieReviews() {
 
     return (
     <div>
-        <h2>We don't have any reviews for this movie</h2>
         <ul>
         {reviews.map(review => (
             <li key={review.id}>
