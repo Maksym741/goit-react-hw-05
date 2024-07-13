@@ -1,0 +1,19 @@
+.container{
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+}
+.img{
+    width: 200px;
+    height: 300px;
+}
+.title{
+    display: flex;
+    flex-direction: column;
+}
+
+.nav{
+    display: flex;
+    gap: 10px;
+    text-decoration: inherit;
+}
