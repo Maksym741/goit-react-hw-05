@@ -26,7 +26,6 @@ export default function MovieCast() {
 
     return (
     <div>
-        <h2>Cast</h2>
         <ul className={css.ul}>
         {cast.map(member => (
             <li key={member.cast_id} className={css.li}>

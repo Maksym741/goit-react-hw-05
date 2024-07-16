@@ -14,6 +14,24 @@
 
 .nav{
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    gap: 5px;
     text-decoration: inherit;
 }
+
+.h2{
+    margin: 0;
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.btn{
+    padding-top: 10px;
+    border: none;
+}
+
+
+
+
+

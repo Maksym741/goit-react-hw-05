@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import css from './MovieDetailsPage.module.css';
@@ -8,6 +8,7 @@ export default function MovieDetailsPage() {
     const [movie, setMovie] = useState(null);
     const location = useLocation();
     const navigate = useNavigate();
+    const locationRef = useRef(location.state?.from);
 
     useEffect(() => {
         const fetchMovieDetails = async () => {
@@ -29,8 +30,8 @@ export default function MovieDetailsPage() {
     }, [movieId]);
 
     const handleGoBack = () => {
-        if (location.state?.from) {
-            navigate(location.state.from);
+        if (locationRef.current) {
+            navigate(locationRef.current);
         } else {
             navigate('/movies');
         }
@@ -40,7 +41,7 @@ export default function MovieDetailsPage() {
 
     return (
         <div>
-            <button onClick={handleGoBack}>Go back</button>
+            <button onClick={handleGoBack} className={css.btn}>Go back</button>
             <div className={css.container}>
                 <img 
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
@@ -53,8 +54,9 @@ export default function MovieDetailsPage() {
                 </div>
             </div>
             <nav className={css.nav}>
-                <Link to="cast" state={{ from: location.state?.from }}>Cast</Link>
-                <Link to="reviews" state={{ from: location.state?.from }}>Reviews</Link>
+                <h2 className={css.h2}>Additional information</h2>
+                <Link to="cast" state={{ from: locationRef.current}}>Cast</Link>
+                <Link to="reviews" state={{ from: locationRef.current}}>Reviews</Link>
             </nav>
             <Outlet />
         </div>
