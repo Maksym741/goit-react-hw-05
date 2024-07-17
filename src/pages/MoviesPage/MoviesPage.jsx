@@ -4,7 +4,8 @@ import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import MovieList from '../../components/MovieList/MovieList';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import css from './MoviesPage.module.css'
+import { Toaster, toast } from 'react-hot-toast';
+import css from './MoviesPage.module.css';
 
 export default function MoviesPage() {
     const { searchResults, setSearchResults, query, setQuery } = useContext(SearchContext);
@@ -25,8 +26,8 @@ export default function MoviesPage() {
                 setTrendingMovies(response.data.results);
                 setLoading(false);
             } catch (error) {
-                console.error('Failed to fetch trending movies:', error);
                 setError('Failed to fetch trending movies');
+                toast.error('Failed to fetch trending movies');
                 setLoading(false);
             }
         };
@@ -54,19 +55,24 @@ export default function MoviesPage() {
             setSearchResults(response.data.results);
             setLoading(false);
         } catch (error) {
-            console.error('Failed to fetch search results:', error);
             setError('Failed to fetch search results');
+            toast.error('Failed to fetch search results');
             setLoading(false);
         }
     };
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
+        if (query.trim() === '') {
+            toast.error('Please enter a valid search query');
+            return;
+        }
         setSearchParams({ query });
     };
 
     return (
         <div className={css.container}>
+            <Toaster />
             <form onSubmit={handleSearchSubmit}>
                 <input 
                     type="text"  
@@ -85,4 +91,6 @@ export default function MoviesPage() {
         </div>
     );
 }
+
+
 
